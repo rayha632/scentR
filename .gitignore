@@ -18,3 +18,5 @@ __pycache__/
 
 # Local database (for Django later)
 db.sqlite3
+
+.pytest_cache/
