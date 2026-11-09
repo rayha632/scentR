@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from recommender import jaccard_similarity, recommend_similar
+from tfidf_recommender import build_tfidf_matrix
 
 
 @pytest.fixture
@@ -91,3 +92,18 @@ def test_recommendation_order(sample_perfumes):
     ids = [perfume["id"] for perfume in results]
 
     assert ids == ["closest", "partial", "unrelated"]
+
+
+### TFIDF
+def test_tfidf_matrix_shape():
+    sample_df = pd.DataFrame(
+        {"notes": [["Vanilla", "Musk"], ["Vanilla", "Rose"], ["Vanilla", "Oud"]]}
+    )
+
+    vectorizer, matrix = build_tfidf_matrix(sample_df)
+
+    # Three perfumes, four unique fragrance notes
+    assert matrix.shape == (3, 4)
+
+    # Verify the expected vocabulary
+    assert set(vectorizer.get_feature_names_out()) == {"vanilla", "musk", "rose", "oud"}
