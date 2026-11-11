@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scentR | Search Perfumes</title>
+</head>
+<body>
+    <h1>scentR</h1>
+    <p>Discover your next fragrance.</p>
+
+    <form method="get" action="{% url 'perfume-search' %}">
+        <input
+            type="search"
+            name="q"
+            value="{{ query }}"
+            placeholder="Search perfumes or brands"
+        >
+        <button type="submit">Search</button>
+    </form>
+
+    {% if query %}
+        <h2>Results for "{{ query }}"</h2>
+
+        {% for perfume in perfumes %}
+            <div>
+                <h3>
+                    <a href="{% url 'perfume-detail' perfume.id %}">
+                        {{ perfume.house }} — {{ perfume.name }}
+                    </a>
+                </h3>
+                <p>{{ perfume.family }}</p>
+            </div>
+        {% empty %}
+            <p>No matching perfumes found.</p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

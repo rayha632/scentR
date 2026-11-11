@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ perfume.name }} | scentR</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">← Back to search</a>
+
+    <h1>{{ perfume.house }} — {{ perfume.name }}</h1>
+
+    <p><strong>Family:</strong> {{ perfume.family }}</p>
+    <p><strong>Secondary family:</strong> {{ perfume.secondary_family }}</p>
+
+    <h2>Description</h2>
+    <p>{{ perfume.description }}</p>
+
+    <!-- General fragrance notes -->
+    <h2>All Fragrance Notes</h2>
+    <ul>
+        {% for note in perfume.notes %}
+            <li>{{ note }}</li>
+        {% empty %}
+            <li>No fragrance notes available.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Fragrance note pyramid -->
+    <h2>Fragrance Note Pyramid</h2>
+
+    <h3>Top Notes</h3>
+    <ul>
+        {% for note in perfume.top_notes %}
+            <li>{{ note }}</li>
+        {% empty %}
+            <li>Not available</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Heart Notes</h3>
+    <ul>
+        {% for note in perfume.heart_notes %}
+            <li>{{ note }}</li>
+        {% empty %}
+            <li>Not available</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Base Notes</h3>
+    <ul>
+        {% for note in perfume.base_notes %}
+            <li>{{ note }}</li>
+        {% empty %}
+            <li>Not available</li>
+        {% endfor %}
+    </ul>
+
+
+    <hr>
+    
+    <h2>Similar Fragrances</h2>
+    
+    <p>Choose a recommendation algorithm:</p>
+    
+    <a href="?algorithm=tfidf">
+        TF-IDF + Cosine Similarity
+    </a>
+    
+    |
+    
+    <a href="?algorithm=jaccard">
+        Jaccard Similarity
+    </a>
+    
+    <p>
+        <strong>Current algorithm:</strong>
+        {{ algorithm }}
+    </p>
+    
+    <ol>
+        {% for recommendation in recommendations %}
+            <li>
+                <a href="{% url 'perfume-detail' recommendation.id %}?algorithm={{ algorithm }}">
+                    {{ recommendation.house }} —
+                    {{ recommendation.name }}
+                </a>
+            
+                <span>
+                    Similarity:
+                    {{ recommendation.similarity|floatformat:3 }}
+                </span>
+            </li>
+        {% empty %}
+            <li>No recommendations available.</li>
+        {% endfor %}
+    </ol>
+
+</body>
+</html>
+
+
