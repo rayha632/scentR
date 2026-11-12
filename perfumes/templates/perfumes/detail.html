@@ -1,102 +1,265 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ perfume.name }} | scentR</title>
-</head>
-<body>
-    <a href="{% url 'home' %}">← Back to search</a>
+{% extends "perfumes/base.html" %}
 
-    <h1>{{ perfume.house }} — {{ perfume.name }}</h1>
+{% block title %}{{ perfume.name }} | ScentR{% endblock %}
 
-    <p><strong>Family:</strong> {{ perfume.family }}</p>
-    <p><strong>Secondary family:</strong> {{ perfume.secondary_family }}</p>
+{% block content %}
 
-    <h2>Description</h2>
-    <p>{{ perfume.description }}</p>
+<!-- Perfume header -->
 
-    <!-- General fragrance notes -->
-    <h2>All Fragrance Notes</h2>
-    <ul>
-        {% for note in perfume.notes %}
-            <li>{{ note }}</li>
-        {% empty %}
-            <li>No fragrance notes available.</li>
-        {% endfor %}
-    </ul>
+<section class="detail-hero">
+    <div class="container">
 
-    <!-- Fragrance note pyramid -->
-    <h2>Fragrance Note Pyramid</h2>
+        <a href="{% url 'perfume-search' %}" class="back-link">
+            <span aria-hidden="true">←</span> Back to index
+        </a>
 
-    <h3>Top Notes</h3>
-    <ul>
-        {% for note in perfume.top_notes %}
-            <li>{{ note }}</li>
-        {% empty %}
-            <li>Not available</li>
-        {% endfor %}
-    </ul>
+        <div class="detail-heading">
+            <p class="eyebrow">{{ perfume.house }}</p>
 
-    <h3>Heart Notes</h3>
-    <ul>
-        {% for note in perfume.heart_notes %}
-            <li>{{ note }}</li>
-        {% empty %}
-            <li>Not available</li>
-        {% endfor %}
-    </ul>
+            <h1 class="detail-title">{{ perfume.name }}</h1>
 
-    <h3>Base Notes</h3>
-    <ul>
-        {% for note in perfume.base_notes %}
-            <li>{{ note }}</li>
-        {% empty %}
-            <li>Not available</li>
-        {% endfor %}
-    </ul>
+            <p class="detail-family">
+                {% if perfume.family %}
+                    {{ perfume.family }}
+                {% endif %}
+
+                {% if perfume.secondary_family %}
+                    <span class="family-divider">/</span>
+                    {{ perfume.secondary_family }}
+                {% endif %}
+            </p>
+        </div>
+
+    </div>
+</section>
 
 
-    <hr>
-    
-    <h2>Similar Fragrances</h2>
-    
-    <p>Choose a recommendation algorithm:</p>
-    
-    <a href="?algorithm=tfidf">
-        TF-IDF + Cosine Similarity
-    </a>
-    
-    |
-    
-    <a href="?algorithm=jaccard">
-        Jaccard Similarity
-    </a>
-    
-    <p>
-        <strong>Current algorithm:</strong>
-        {{ algorithm }}
-    </p>
-    
-    <ol>
-        {% for recommendation in recommendations %}
-            <li>
-                <a href="{% url 'perfume-detail' recommendation.id %}?algorithm={{ algorithm }}">
-                    {{ recommendation.house }} —
-                    {{ recommendation.name }}
+<!-- Fragrance profile -->
+
+<section class="detail-section">
+    <div class="container">
+
+        <div class="section-layout">
+            <div class="section-label">
+                <p class="eyebrow">FRAGRANCE PROFILE</p>
+            </div>
+
+            <div class="section-content">
+
+                {% if perfume.description %}
+                    <p class="perfume-description">
+                        {{ perfume.description }}
+                    </p>
+                {% endif %}
+
+                <div class="profile-metadata">
+
+                    {% if perfume.character %}
+                        <div class="metadata-row">
+                            <span>Character</span>
+                            <span>{{ perfume.character|join:", " }}</span>
+                        </div>
+                    {% endif %}
+
+                    {% if perfume.seasons %}
+                        <div class="metadata-row">
+                            <span>Seasons</span>
+                            <span>{{ perfume.seasons|join:", " }}</span>
+                        </div>
+                    {% endif %}
+
+                    {% if perfume.times_of_day %}
+                        <div class="metadata-row">
+                            <span>Time of day</span>
+                            <span>{{ perfume.times_of_day|join:", " }}</span>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Note pyramid -->
+
+<section class="detail-section">
+    <div class="container">
+
+        <div class="section-layout">
+            <div class="section-label">
+                <p class="eyebrow">FRAGRANCE NOTES</p>
+                <p class="section-caption">
+                    The composition of the fragrance.
+                </p>
+            </div>
+
+            <div class="section-content">
+
+                {% if perfume.top_notes or perfume.heart_notes or perfume.base_notes %}
+
+                    <div class="note-pyramid">
+
+                        <div class="note-layer">
+                            <div class="note-layer-heading">
+                                <span class="note-index">01</span>
+                                <h2>Top notes</h2>
+                            </div>
+
+                            <div class="note-items">
+                                {% for note in perfume.top_notes %}
+                                    <span class="note-item">{{ note }}</span>
+                                {% empty %}
+                                    <span class="note-missing">Not specified</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="note-layer">
+                            <div class="note-layer-heading">
+                                <span class="note-index">02</span>
+                                <h2>Heart notes</h2>
+                            </div>
+
+                            <div class="note-items">
+                                {% for note in perfume.heart_notes %}
+                                    <span class="note-item">{{ note }}</span>
+                                {% empty %}
+                                    <span class="note-missing">Not specified</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="note-layer">
+                            <div class="note-layer-heading">
+                                <span class="note-index">03</span>
+                                <h2>Base notes</h2>
+                            </div>
+
+                            <div class="note-items">
+                                {% for note in perfume.base_notes %}
+                                    <span class="note-item">{{ note }}</span>
+                                {% empty %}
+                                    <span class="note-missing">Not specified</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <p class="note-missing">
+                        A detailed note pyramid is not available for
+                        this fragrance.
+                    </p>
+
+                {% endif %}
+
+                {% if perfume.notes %}
+                    <div class="all-notes">
+                        <h3>Complete note list</h3>
+
+                        <div class="note-items">
+                            {% for note in perfume.notes %}
+                                <span class="note-item">{{ note }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Recommendations -->
+
+<section class="recommendation-section">
+    <div class="container">
+
+        <div class="recommendation-heading">
+            <div>
+                <p class="eyebrow">DISCOVER MORE</p>
+                <h2>Similar fragrances</h2>
+                <p class="section-caption">
+                    Recommendations based on fragrance note similarity.
+                </p>
+            </div>
+
+            <nav class="algorithm-selector" aria-label="Recommendation algorithm">
+                <a
+                    href="{% url 'perfume-detail' perfume.id %}?algorithm=tfidf"
+                    class="{% if algorithm == 'tfidf' %}active{% endif %}"
+                    {% if algorithm == 'tfidf' %}aria-current="page"{% endif %}
+                >
+                    TF-IDF
                 </a>
-            
-                <span>
-                    Similarity:
-                    {{ recommendation.similarity|floatformat:3 }}
-                </span>
-            </li>
-        {% empty %}
-            <li>No recommendations available.</li>
-        {% endfor %}
-    </ol>
 
-</body>
-</html>
+                <a
+                    href="{% url 'perfume-detail' perfume.id %}?algorithm=jaccard"
+                    class="{% if algorithm == 'jaccard' %}active{% endif %}"
+                    {% if algorithm == 'jaccard' %}aria-current="page"{% endif %}
+                >
+                    Jaccard
+                </a>
+            </nav>
+        </div>
 
+        <ol class="recommendation-list">
+            {% for recommendation in recommendations %}
 
+                <li>
+                    <a
+                        href="{% url 'perfume-detail' recommendation.id %}?algorithm={{ algorithm }}"
+                        class="recommendation-row"
+                    >
+                        <span class="recommendation-number">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </span>
+
+                        <span class="recommendation-info">
+                            <span class="result-house">
+                                {{ recommendation.house }}
+                            </span>
+
+                            <span class="recommendation-name">
+                                {{ recommendation.name }}
+                            </span>
+                        </span>
+
+                        <span class="recommendation-score">
+                            {{ recommendation.similarity|floatformat:2 }}
+                        </span>
+
+                        <span class="recommendation-arrow" aria-hidden="true">
+                            ↗
+                        </span>
+                    </a>
+                </li>
+
+            {% empty %}
+
+                <li class="no-results">
+                    No recommendations available.
+                </li>
+
+            {% endfor %}
+        </ol>
+
+        <p class="similarity-explanation">
+            Similarity scores range from 0 to 1.
+            Higher scores indicate greater similarity between
+            the fragrances' listed notes.
+        </p>
+
+    </div>
+</section>
+
+{% endblock %}

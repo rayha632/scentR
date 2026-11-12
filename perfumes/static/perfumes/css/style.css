@@ -1,0 +1,695 @@
+
+:root {
+    --bg: #f6f4ef;
+    --text: #242520;
+    --muted: #77766f;
+    --line: #d9d6ce;
+    --accent: #915d46;
+    --hover: #ebe8e1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: inherit;
+}
+
+.container {
+    width: min(100% - 48px, 1080px);
+    margin: 0 auto;
+}
+
+.site-main {
+    min-height: 70vh;
+}
+
+/* Navigation */
+
+.site-header {
+    border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+    min-height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wordmark {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1.8px;
+    text-decoration: none;
+}
+
+.wordmark span:first-child {
+    font-weight: 400;
+}
+
+.wordmark-dot {
+    color: var(--accent);
+}
+
+.site-header nav a {
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 5px;
+}
+
+.site-header nav a:hover {
+    border-color: var(--text);
+}
+
+/* Intro */
+
+.intro-section {
+    padding: 75px 0 65px;
+}
+
+.eyebrow {
+    margin: 0;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+
+.page-title {
+    max-width: 750px;
+    margin: 24px 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(36px, 4.5vw, 60px);
+    font-weight: 400;
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+}
+
+
+.intro-description {
+    max-width: 470px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* Search */
+
+.search-form {
+    max-width: 780px;
+    margin-top: 62px;
+}
+
+.search-label {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+.search-control {
+    display: flex;
+    border-bottom: 1px solid var(--text);
+}
+
+.search-control input {
+    flex: 1;
+    min-width: 0;
+    padding: 18px 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 19px;
+}
+
+.search-control input::placeholder {
+    color: #a29f96;
+}
+
+.search-control input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.search-control button {
+    padding: 12px 6px 12px 24px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.search-control button:hover {
+    color: var(--accent);
+}
+
+.search-control button span {
+    margin-left: 9px;
+}
+
+/* Catalogue */
+
+.catalogue-section {
+    padding: 42px 0 110px;
+    border-top: 1px solid var(--line);
+}
+
+.catalogue-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 35px;
+}
+
+.catalogue-heading h2 {
+    margin: 12px 0 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    font-weight: 400;
+}
+
+.result-count {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.result-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+}
+
+.result-row {
+    display: grid;
+    grid-template-columns: 50px minmax(0, 1fr) 220px 24px;
+    align-items: center;
+    gap: 18px;
+    min-height: 116px;
+    padding: 18px 8px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.result-row:hover {
+    background: var(--hover);
+}
+
+.result-row:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+.result-number {
+    align-self: start;
+    padding-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.result-main {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.result-house {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.result-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+.result-family {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.result-arrow {
+    font-size: 22px;
+}
+
+.no-results,
+.empty-state {
+    padding: 55px 0;
+}
+
+.no-results h3 {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.no-results p,
+.empty-state p {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.example-searches {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.example-searches a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease;
+}
+
+.example-searches a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.example-searches a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Footer */
+
+.site-footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.footer-inner a:hover {
+    color: var(--accent);
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+    .container {
+        width: min(100% - 32px, 1080px);
+    }
+
+    .intro-section {
+        padding: 66px 0;
+    }
+
+    .page-title {
+        letter-spacing: -1px;
+    }
+
+    .search-form {
+        margin-top: 45px;
+    }
+
+    .result-row {
+        grid-template-columns: 28px minmax(0, 1fr) 24px;
+        gap: 12px;
+    }
+
+    .result-family {
+        display: none;
+    }
+
+    .result-name {
+        font-size: 23px;
+    }
+
+    .catalogue-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+}
+
+
+/* ---------------------------------
+   Perfume detail page
+--------------------------------- */
+
+/* Header */
+
+.detail-hero {
+    padding: 42px 0 75px;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+.detail-heading {
+    margin-top: 90px;
+}
+
+.detail-title {
+    margin: 20px 0;
+    max-width: 900px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(48px, 7vw, 90px);
+    font-weight: 400;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+
+.detail-family {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.family-divider {
+    margin: 0 8px;
+    color: var(--line);
+}
+
+/* Shared detail sections */
+
+.detail-section {
+    padding: 65px 0;
+    border-top: 1px solid var(--line);
+}
+
+.section-layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 55px;
+}
+
+.section-caption {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.perfume-description {
+    max-width: 680px;
+    margin: 0 0 40px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    line-height: 1.65;
+}
+
+/* Fragrance characteristics */
+
+.profile-metadata {
+    border-top: 1px solid var(--line);
+}
+
+.metadata-row {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+}
+
+.metadata-row span:first-child {
+    color: var(--muted);
+}
+
+.metadata-row span:last-child {
+    line-height: 1.6;
+}
+
+/* Note pyramid */
+
+.note-pyramid {
+    border-top: 1px solid var(--line);
+}
+
+.note-layer {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 25px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.note-layer-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.note-index {
+    color: var(--accent);
+    font-size: 11px;
+}
+
+.note-layer-heading h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.note-items {
+    display: flex;
+    align-content: start;
+    align-items: start;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.note-item {
+    display: inline-block;
+    padding: 9px 13px;
+    border: 1px solid var(--line);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.note-missing {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.all-notes {
+    margin-top: 42px;
+}
+
+.all-notes h3 {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+/* Recommendations */
+
+.recommendation-section {
+    padding: 75px 0 110px;
+    border-top: 1px solid var(--line);
+}
+
+.recommendation-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 45px;
+}
+
+.recommendation-heading h2 {
+    margin: 16px 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 38px;
+    font-weight: 400;
+}
+
+.algorithm-selector {
+    display: flex;
+    border: 1px solid var(--line);
+}
+
+.algorithm-selector a {
+    padding: 11px 19px;
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.algorithm-selector a + a {
+    border-left: 1px solid var(--line);
+}
+
+.algorithm-selector a.active {
+    background: var(--text);
+    color: var(--bg);
+}
+
+.algorithm-selector a:hover:not(.active) {
+    background: var(--hover);
+}
+
+.recommendation-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+}
+
+.recommendation-row {
+    display: grid;
+    grid-template-columns: 50px minmax(0, 1fr) 80px 24px;
+    align-items: center;
+    gap: 18px;
+    min-height: 115px;
+    padding: 18px 8px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.recommendation-row:hover {
+    background: var(--hover);
+}
+
+.recommendation-row:focus-visible,
+.algorithm-selector a:focus-visible,
+.back-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.recommendation-number {
+    align-self: start;
+    padding-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.recommendation-info {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.recommendation-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.recommendation-score {
+    color: var(--accent);
+    font-size: 16px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.recommendation-arrow {
+    font-size: 22px;
+}
+
+.similarity-explanation {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Responsive detail layout */
+
+@media (max-width: 750px) {
+    .detail-hero {
+        padding-bottom: 55px;
+    }
+
+    .detail-heading {
+        margin-top: 60px;
+    }
+
+    .detail-title {
+        letter-spacing: -1px;
+    }
+
+    .detail-section {
+        padding: 45px 0;
+    }
+
+    .section-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .perfume-description {
+        font-size: 19px;
+    }
+
+    .note-layer {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .metadata-row {
+        grid-template-columns: 100px minmax(0, 1fr);
+        gap: 15px;
+    }
+
+    .recommendation-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .recommendation-row {
+        grid-template-columns: 28px minmax(0, 1fr) 45px 20px;
+        gap: 12px;
+    }
+
+    .recommendation-name {
+        font-size: 21px;
+    }
+
+    .recommendation-section {
+        padding: 55px 0 80px;
+    }
+}

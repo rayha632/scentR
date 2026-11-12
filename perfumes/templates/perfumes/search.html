@@ -1,39 +1,134 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>scentR | Search Perfumes</title>
-</head>
-<body>
-    <h1>scentR</h1>
-    <p>Discover your next fragrance.</p>
+{% extends "perfumes/base.html" %}
 
-    <form method="get" action="{% url 'perfume-search' %}">
-        <input
-            type="search"
-            name="q"
-            value="{{ query }}"
-            placeholder="Search perfumes or brands"
+{% block title %}Explore Fragrances | ScentR{% endblock %}
+
+{% block content %}
+
+<section class="intro-section">
+    <div class="container">
+
+        <p class="eyebrow">PERFUME RECOMMENDER</p>
+
+        <h1 class="page-title">
+            Start with a fragrance<br>
+            you know.
+        </h1>
+
+        <p class="intro-description">
+            ScentR helps you discover fragrances similar to the
+            ones you already love, using their scent profiles
+            and fragrance notes.
+        </p>
+
+        <form
+            method="get"
+            action="{% url 'perfume-search' %}"
+            class="search-form"
+            role="search"
         >
-        <button type="submit">Search</button>
-    </form>
+            <label for="perfume-query" class="search-label">
+                SEARCH THE CATALOGUE
+            </label>
 
-    {% if query %}
-        <h2>Results for "{{ query }}"</h2>
+            <div class="search-control">
+                <input
+                    id="perfume-query"
+                    type="search"
+                    name="q"
+                    value="{{ query }}"
+                    placeholder="Perfume name or fragrance house"
+                    autocomplete="off"
+                >
 
-        {% for perfume in perfumes %}
-            <div>
-                <h3>
-                    <a href="{% url 'perfume-detail' perfume.id %}">
-                        {{ perfume.house }} — {{ perfume.name }}
-                    </a>
-                </h3>
-                <p>{{ perfume.family }}</p>
+                <button type="submit">
+                    Search <span aria-hidden="true">↗</span>
+                </button>
             </div>
-        {% empty %}
-            <p>No matching perfumes found.</p>
-        {% endfor %}
-    {% endif %}
-</body>
-</html>
+        </form>
+
+        <div class="example-searches">
+            <span>Try:</span>
+
+            <a href="{% url 'perfume-search' %}?q=Aventus">
+                Aventus
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="{% url 'perfume-search' %}?q=Halfeti">
+                Halfeti
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="{% url 'perfume-search' %}?q=Diptyque">
+                Diptyque
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% if query %}
+<section class="catalogue-section">
+    <div class="container">
+
+        <div class="catalogue-heading">
+            <div>
+                <p class="eyebrow">SEARCH / RESULTS</p>
+                <h2>Results for "{{ query }}"</h2>
+            </div>
+
+            <span class="result-count">
+                {{ perfumes|length }} DISPLAYED
+            </span>
+        </div>
+
+        <ol class="result-list">
+            {% for perfume in perfumes %}
+
+                <li>
+                    <a
+                        href="{% url 'perfume-detail' perfume.id %}"
+                        class="result-row"
+                    >
+                        <span class="result-number">
+                            {{ forloop.counter }}
+                        </span>
+
+                        <span class="result-main">
+                            <span class="result-house">
+                                {{ perfume.house }}
+                            </span>
+
+                            <span class="result-name">
+                                {{ perfume.name }}
+                            </span>
+                        </span>
+
+                        <span class="result-family">
+                            {{ perfume.family }}
+                        </span>
+
+                        <span class="result-arrow" aria-hidden="true">
+                            ↗
+                        </span>
+                    </a>
+                </li>
+
+            {% empty %}
+
+                <li class="no-results">
+                    <h3>No matching fragrances.</h3>
+                    <p>Try another perfume or fragrance house.</p>
+                </li>
+
+            {% endfor %}
+        </ol>
+
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
