@@ -21,6 +21,8 @@ jobs:
       DB_HOST: localhost
       DB_PORT: "5432"
       DJANGO_SECRET_KEY: ci-only-django-secret-key
+      DJANGO_DEBUG: "True"
+
 
     services:
       postgres:
@@ -54,7 +56,7 @@ jobs:
 
       - name: Run unit and Django tests
         run: python -m pytest -v
-
+        
   code-quality:
     runs-on: ubuntu-latest
 
