@@ -49,6 +49,9 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
+      - name: Collect static files
+        run: python manage.py collectstatic --noinput
+
       - name: Run unit and Django tests
         run: python -m pytest -v
 
