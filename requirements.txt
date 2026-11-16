@@ -6,3 +6,6 @@ Django
 psycopg[binary]
 python-dotenv
 pytest-django
+gunicorn
+whitenoise[brotli]
+dj-database-url
